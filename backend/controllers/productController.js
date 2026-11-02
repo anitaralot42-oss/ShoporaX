@@ -1,6 +1,6 @@
-
-const product = require("../model/product");
 const cloudinary = require("../config/cloudinary");
+const Product = require("../model/product")
+
 
 
 
@@ -13,6 +13,7 @@ const getProducts = async(req,res) =>{
 
     catch(error){
         res.status(500).json({message : "Server error"});
+        console.log(error);
 
 
     }
@@ -81,9 +82,11 @@ const createProduct = async (req, res) => {
 
 const updateProduct = async (req, res) => {
     try {
+
         // Postman se new product details lena
+        const { name, description, price, category, stock } = req.body;
         // ID ke through existing product find karna
-        const product = await Product.findByIdAndUpdate(req.params.id, req.body);
+        const product = await Product.findById(req.params.id);
 
         if (product) {
 
@@ -93,7 +96,7 @@ const updateProduct = async (req, res) => {
             product.price = price || product.price;
             product.category = category || product.category;
             product.stock = stock || product.stock;
-
+           
             // Check karna ki new image upload hui hai ya nahi
             if (req.file) {
 
@@ -118,6 +121,7 @@ const updateProduct = async (req, res) => {
     catch (error) {
         // Koi error aane par server error response dena
         res.status(500).json({ message: "Server error" });
+        console.log(error)
     }
 };
 

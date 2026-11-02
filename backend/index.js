@@ -20,10 +20,10 @@ app.get("/", (req, res) => {
 });
 
 app.use('/api/auth',userRoutes);
-app.use('/api/product',productRoutes);
-// app.use('/api/order',orderRoutes);
-// app.use('/api/payment',paymentRotes);
-// app.use('/analyticsRoutes',analyticsRoutes);
+app.use('/api',productRoutes);
+app.use('/api',orderRoutes);
+// app.use('/api',paymentRotes);
+app.use('/api/analytic',analyticsRoutes);
 
 
 
